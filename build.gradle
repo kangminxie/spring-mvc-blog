@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'checkstyle'
 }
 
 group = 'com.kangmin'
@@ -33,4 +34,21 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+def configDir = "${project.rootDir}/config" as String
+def checkstyleConfigDir = "${configDir}/checkstyle" as String
+
+checkstyle {
+	toolVersion = '8.35'
+	configFile file("${checkstyleConfigDir}/checkstyle.xml")
+	configProperties.checkstyleSuppressionsPath = file("${checkstyleConfigDir}/suppressions.xml").absolutePath
+}
+
+checkstyleMain {
+	source ='src/main/java'
+}
+
+checkstyleTest {
+	source ='src/test/java'
 }

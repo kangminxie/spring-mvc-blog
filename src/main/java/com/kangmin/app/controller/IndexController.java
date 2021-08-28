@@ -10,6 +10,6 @@ public class IndexController {
     @RequestMapping("")
     @ResponseBody
     public String checkHealth() {
-        return "App is OK";
+        return "App is OK for 2021-08-28_17:38";
     }
 }

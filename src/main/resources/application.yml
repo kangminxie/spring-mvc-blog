@@ -2,6 +2,7 @@
 # current default active profiles: dev
 spring:
   config:
+    use-legacy-processing: true
     import: file:env.properties
   thymeleaf:
     mode: HTML

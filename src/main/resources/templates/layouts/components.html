@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!-- head replacement -->
+<!--  https://stackoverflow.com/questions/31451830/head-and-title-in-thymeleaf ref for head() -->
+<head th:fragment="head(title)">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS support -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}">
+    <!-- Font-awesome support v5.13.0-->
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <title th:replace="${title}">我的博客</title>
+</head>
+<body>
+    <nav th:fragment="navigation-bar(location)"
+         class="navbar navbar-expand-md navbar-light fixed-top pb-1 mb-0 px-4" id="main-nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"> </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" th:classappend="${location=='index' || location=='home'} ? 'active'">
+                    <a class="nav-link active" th:href="@{/}">
+                        <span th:text="#{message.page.common.nav.brand.label}">
+                            KangminBlog
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${location=='blogs'} ? 'active'">
+                    <a class="nav-link active" th:href="@{/blogs}">
+                        <i class="fas fa-home"> </i>&nbsp;
+                        <span th:text="#{message.page.common.nav.home.label}">
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${location=='category'} ? 'active'">
+                    <a class="nav-link active" th:href="@{/category}">
+                        <i class="fas fa-leaf"> </i>&nbsp;
+                        <span th:text="#{message.page.common.nav.category.label}">
+                            Category
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link active" th:href="@{/course}">
+                        <i class="fas fa-book-reader"> </i>&nbsp;Course
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/about}">
+                        <i class="fas fa-book"> </i>&nbsp;
+                        <span th:text="#{message.page.common.nav.about.label}">
+                            About
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mx-auto">
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+                    <a class="btn btn-outline-success" th:href="@{/blogs/create}" target="_blank">
+                        <i class="fas fa-plus"> </i>&nbsp;New Blog
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+                    <a class="nav-link active" th:href="@{/admin}">
+                        <i class="fas fa-user-tie"> </i>&nbsp;Admin
+                    </a>
+                </li>
+<!--                <li class="nav-item" sec:authorize="isAnonymous()">-->
+<!--                    <a class="nav-link active"  th:href="@{/login}">-->
+<!--                        <i class="fas fa-unlock-alt"> </i>&nbsp;Login-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" sec:authorize="isAnonymous()">-->
+<!--                    <a class="nav-link active" th:href="@{/register}">-->
+<!--                        <span class="fa fa-user"> </span>&nbsp;Register-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li class="nav-item dropdown show" sec:authorize="isAuthenticated()">
+                    <a class="nav-item active btn dropdown-toggle" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog">&nbsp;</i>Account Settings
+                    </a>
+                    <div class="nav-item active dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" th:href="@{/account/edit}">
+                            <i class="fa fa-edit">&nbsp;</i>&nbsp;Edit My Information</a>
+                        <a class="dropdown-item" th:href="@{/account/password-change}">
+                            <i class="fas fa-key">&nbsp;</i>&nbsp;Change My Password</a>
+                        <div class="dropdown-divider"><hr></div>
+                        <a class="dropdown-item" href="#"
+                           onclick="document.getElementById('logout-form').submit();">
+                            <i class="fas fa-power-off">&nbsp;</i>&nbsp;Logout
+                        </a>
+                    </div>
+                </li>
+                <!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+                <!--                <a class="nav-link active" style="cursor:pointer;"-->
+                <!--                   onclick="document.getElementById('logout-form').submit();">-->
+                <!--                    <i class="fas fa-power-off">&nbsp;</i>&nbsp;Logout-->
+                <!--                </a>-->
+                <!--            </li>-->
+                <li class="nav-item dropdown show">
+                    <a class="nav-item active btn dropdown-toggle" role="button" id="languageOptions"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-language">&nbsp;</i>Language
+                    </a>
+                    <div class="nav-item active dropdown-menu" aria-labelledby="languageOptions">
+                    <span th:if="${#locale.language.isEmpty() || #locale.language == 'us' || #locale.language =='en'}">
+                        <a class="nav-link active" href="?language=cn">
+                            Switch to Chinese
+                        </a>
+                    </span>
+                        <span th:if="${#locale.language =='cn'}">
+                        <a class="nav-link active" href="?language=en">
+                            切换到英语
+                        </a>
+                    </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <form method="POST" id="logout-form" action="#" th:action="@{/logout}"> </form>
+    </nav>
+
+    <div th:fragment="flash-message">
+        <!--/*@thymesVar id="pageMessage" type="java"*/-->
+        <div th:if="${pageMessage != null}">
+            <section class="col-sm-12">
+                <div class="text-center alert alert-success alert-dismissible">
+                    <button class="close" type="button" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    <i class="alert"><span th:text="${pageMessage}">pageMessage</span></i>
+                </div>
+            </section>
+        </div>
+        <!--/*@thymesVar id="pageErrorMessage" type="java"*/-->
+        <div th:if="${pageErrorMessage != null}">
+            <section class="col-sm-12">
+                <div class="text-center alert alert-danger alert-dismissible">
+                    <button class="close" type="button" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    <i class="alert"><span th:text="${pageErrorMessage}">pageErrorMessage</span></i>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div th:fragment="footer">
+        <div class="py-3 bg-light">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-4 col-md-6 col-sm-10">
+                        <h5>Tech Stacks</h5>
+                        <ul class="links list-unstyled">
+                            <li> <a href="https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html" class="text-muted">Java 8-11</a></li>
+                            <li> <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html" class="text-muted">Spring 5</a></li>
+                            <li> <a href="https://dev.mysql.com/doc/refman/5.7/en/" class="text-muted">MySQL 5.7</a></li>
+                            <li> <a href="https://getbootstrap.com/docs/4.5/getting-started/introduction/" class="text-muted">Bootstrap 4.5</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-10">
+                        <h5>Web Development</h5>
+                        <ul class="contact-info list-unstyled">
+                            <li>Spring MVC monolithic</li>
+                            <li><a href="mailto:mountkingx@gmail.com" class="text-dark">mountkingx@gmail.com</a></li>
+                            <li>https://github.com/MountKingX</li>
+                        </ul>
+                        <p class="text-muted">Good luck with everything</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-10">
+                        <h5>Favorites</h5>
+                        <ul class="links list-unstyled">
+                            <li> <a href="https://www.premierleague.com/" class="text-muted">Premier League</a></li>
+                            <li> <a href="https://www.premierleague.com/players/1208/Michael-Owen/overview" class="text-muted">Michael Owen</a></li>
+                            <li> <a href="https://en.wikipedia.org/wiki/The_Three-Body_Problem_(novel)" class="text-muted">Three Body Problems</a></li>
+                            <li> <a href="https://www.youtube.com/watch?v=gY2ekm_krNU" class="text-muted">To Be a Better Man</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="text-center bg-dark text-white pt-3 pb-2">
+            <p>&copy; 2016-2021 by Dr. Kangmin Xie, kangmin.xie@gmail.com. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <div th:fragment="scripts">
+        <script th:src="@{/js/main.js}"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/1.16.0/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+        <!-- dataTable jQuery support -->
+        <script th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+        <!-- font-awesome, Personal Free Account -->
+        <script th:src="@{https://kit.fontawesome.com/bab63f2571.js}" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

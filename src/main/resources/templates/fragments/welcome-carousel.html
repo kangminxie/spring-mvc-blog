@@ -1,0 +1,57 @@
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<body>
+<div th:fragment="welcome-carousel">
+    <section id="showcase">
+        <div id="welcomeCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#welcomeCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#welcomeCarousel" data-slide-to="1"></li>
+                <li data-target="#welcomeCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item carousel-image-1 active"
+                     th:style="'background: url(' + @{/img/index-show-family.jpg} + ') no-repeat 0 -100px; background-size: cover;'">
+                    <div class="container">
+                        <div class="carousel-caption d-none d-sm-block text-left mb-5">
+                            <h3>Life is great</h3>
+                            <p class="lead">Try enjoying it</p>
+<!--                            <a href="#" class="btn btn-danger btn-lg">Sign Up Now</a>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item carousel-image-2"
+                     th:style="'background: url(' + @{/img/index-show-elephant.jpg} + ') no-repeat 0 -180px; background-size: cover;'">
+                    <div class="container">
+                        <div class="carousel-caption d-none d-sm-block text-right mb-5">
+                            <h3>Life is balanced</h3>
+                            <p class="lead">Be wise enough to find the point!</p>
+<!--                            <a href="#" class="btn btn-primary btn-lg">Login In</a>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item carousel-image-3"
+                     th:style="'background: url(' + @{/img/index-show-zhangjiajie.jpg} + ') no-repeat 0 -100px; background-size: cover;'">
+                    <div class="container">
+                        <div class="carousel-caption d-none d-sm-block text-right mb-5">
+                            <h3>Life is believe</h3>
+                            <p class="lead">Believe yourself and the ones you loved</p>
+<!--                            <a href="${contextPath}/${UrlMappings.ABOUT}" class="btn btn-success btn-lg">Learn More</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#welcomeCarousel" data-slide="prev" class="carousel-control-prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a href="#welcomeCarousel" data-slide="next" class="carousel-control-next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </section>
+</div>
+</body>
+</html>

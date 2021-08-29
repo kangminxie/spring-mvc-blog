@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head th:replace="layouts/components :: head(~{::title})">
+    <title th:text="#{message.page.login.head.title}">Login Page</title>
+</head>
+<body>
+    <nav th:replace="layouts/components :: navigation-bar(index)"></nav>
+    <!-- LOGIN HEADER -->
+    <header class="app-header"
+            th:style="'background: url(' + @{/img/header-flight.jpg} + ') no-repeat 0 -250px; background-size: cover;'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mt-0" style="color: coral;">
+                    <h1><i class="fas fa-plane"> </i>
+                        <span th:text="#{message.page.login.header.label}">
+                            Login Page
+                        </span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div th:insert="layouts/components :: flash-message"></div>
+    <div th:if="${param.error != null}">
+        <div class="alert alert-danger alert-dismissible col-sm-12 mx-auto">
+            <button class="close" type="button" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            <div class="text-center">
+                <i th:text="${param.error}" class="alert"> </i>
+                <i th:if="${#strings.isEmpty(param.error)}">
+                        <span th:text="#{message.page.login.param.error.flash}">
+                            * Username/Email & Password does not match!
+                        </span>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div th:if="${param.logout != null}">
+        <div class="alert alert-success alert-dismissible col-sm-12">
+            <button class="close" type="button" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            <div class="text-center">
+                <i class="alert">
+                        <span th:text="#{message.page.login.param.logout.flash}">
+                            You have been logout successfully!
+                        </span>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <section id="login">
+            <div class="row my-4">
+                <div class="col-lg-5 col-md-8 col-sm-10 col-xs-12 mx-auto">
+                    <div class="card bg-dark">
+                        <div class="card-header text-white">
+                            <h4 th:text="#{message.page.login.form.header}">Please Sign-In Here</h4>
+                        </div>
+                        <div class="card-body bg-light pb-3">
+                            <form method="POST" action="#" th:action="@{/authenticateTheUser}">
+                                <div class="form-group mb-3">
+                                    <i class="fas fa-user-circle"> </i>&nbsp;
+                                    <label for="username" class="font-weight-bold">
+                                        <span th:text="#{message.page.login.form.label.username}">
+                                            Username or Email
+                                        </span>
+                                    </label>
+                                    <input id="username" name="username" type="text" class="form-control">
+                                </div>
+                                <div class="form-group my-3">
+                                    <i class="fas fa-key"> </i>&nbsp;
+                                    <label for="password" class="font-weight-bold">
+                                        <span th:text="#{message.page.login.form.label.password}">
+                                            Password
+                                        </span>
+                                    </label>
+                                    <input id="password" name="password" type="password" class="form-control">
+                                </div>
+                                <div class="mt-4">
+                                    <input type="submit" value="Login" class="btn btn-dark btn-lg btn-block">
+                                </div>
+                            </form>
+<!--                            <div class="mt-4">-->
+<!--                                <div class="d-flex justify-content-center links">-->
+<!--                                    <a href="/login">-->
+<!--                                        <span th:text="#{message.page.login.link.forget-password}">-->
+<!--                                            Forgot your password?-->
+<!--                                        </span>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex justify-content-center links">-->
+<!--                                   <span th:text="#{message.page.login.form.label.no-account-yet}">-->
+<!--                                       Don't have an account?-->
+<!--                                   </span>-->
+<!--                                    <a href="/register" class="ml-2">-->
+<!--                                        <span th:text="#{message.page.login.link.sign-up}">-->
+<!--                                            Sign Up-->
+<!--                                        </span>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row my-2">-->
+<!--                                <div class="col-sm-5">-->
+<!--                                    <hr>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-2 text-center">-->
+<!--                                    <span th:text="#{message.page.login.option.or}">-->
+<!--                                        or-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-5">-->
+<!--                                    <hr>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="my-2 text-center">-->
+<!--                                <span th:text="#{message.page.login.option.login-with}">-->
+<!--                                    login with-->
+<!--                                </span>-->
+<!--                                <span class="mx-2">-->
+<!--                                    <a href="/login" class="btn"-->
+<!--                                       th:href="@{/oauth2/authorization/google}">-->
+<!--                                        <i class="fab fa-google fa-3x" style="color: #4c8bf5"> </i>-->
+<!--                                    </a>-->
+<!--                                </span>-->
+<!--                                <span class="mx-2">-->
+<!--                                    <a href="/login" class="btn"-->
+<!--                                       th:href="@{/oauth2/authorization/github}">-->
+<!--                                        <i class="fab fa-github fa-3x"> </i>-->
+<!--                                    </a>-->
+<!--                                </span>-->
+<!--                                <span class="mx-2">-->
+<!--                                    <a href="/login" class="btn"-->
+<!--                                       th:href="@{/oauth2/authorization/facebook}">-->
+<!--                                        <i class="fab fa-facebook fa-3x" style="color: #3b5998"> </i>-->
+<!--                                    </a>-->
+<!--                                </span>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><br/><br/>
+    </div>
+    <div th:insert="layouts/components :: footer"></div>
+    <div th:insert="layouts/components :: scripts"></div>
+</body>
+</html>

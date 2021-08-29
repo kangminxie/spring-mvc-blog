@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page</title>
+<head th:replace="layouts/components :: head(~{::title})">
+    <title th:text="#{message.page.index.head.title}">
+        Index Page
+    </title>
 </head>
 <body>
-    <div id="index-page-main" class="page-main mt-0 pt-0">
-        <header class="welcome-header bg-dark">
-            <div class="container">
-                <div class="col-md-10 py-3 text-white">
-                    <h2>Welcome to this Site :-)</h2>
-                </div>
+<nav th:replace="layouts/components :: navigation-bar(index)"></nav>
+<div id="index-page-main" class="page-main mt-0 pt-0">
+    <header class="welcome-header bg-dark">
+        <div class="container">
+            <div class="col-md-10 py-3 text-white">
+                <h2 th:text="#{message.page.index.welcome.content}">Welcome to this Site :-)</h2>
             </div>
-        </header>
-        <main>
-            Enjoy development
-        </main>
-        <th:block th:if="${envNode} == 'DEV'">
-            <span style="position: absolute; right: 20px; color: orange">In DEV Mode</span>
-        </th:block>
+        </div>
+    </header>
+
+    <div class="container my-3">
+        <div th:insert="fragments/welcome-carousel :: welcome-carousel"></div>
     </div>
-    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+    <th:block th:if="${envNode} == 'DEV'">
+        <span style="position: absolute; right: 20px; color: orange">In DEV Mode</span>
+    </th:block>
+</div>
+
+<div th:insert="layouts/components :: footer"></div>
+<script src="https://kit.fontawesome.com/bab63f2571.js" crossorigin="anonymous"></script>
+<div th:insert="layouts/components :: scripts"></div>
 </body>
 </html>

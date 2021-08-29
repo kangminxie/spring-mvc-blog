@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 55px 0 0;
+    font-family: Georgia, serif;
+    background-color: aliceblue;
+}
+
+.navbar {
+    box-shadow: 2px 2px 5px #3255a6;
+    opacity: 0.80;
+    background: #fff;
+}
+.navbar .nav-item {
+    font-size: 1.1rem;
+    padding-right: 1.1rem;
+}
+
+nav a {
+    color: black;
+}
+
+.page-main {
+    padding-top: 16px;
+}
+
+.app-header {
+    height: 160px;
+    color: #fff;
+    border-bottom: 1px #eee solid;
+    padding-top: 30px;
+    font-family: Georgia, serif;
+}
+
+.carousel-item {
+    height: 520px;
+    color: orange;
+    min-width: 400px;
+}
+
+.my-category-selected {
+    background-color: orange;
+    color: white;
+}

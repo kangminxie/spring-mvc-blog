@@ -2,6 +2,7 @@
 .gradle
 HELP.md
 build/
+log/
 **/build/
 !src/**/build/
 !gradle/wrapper/gradle-wrapper.jar

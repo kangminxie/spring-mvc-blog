@@ -1,0 +1,43 @@
+# For dev profile
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb  # http://localhost:8080//h2-console/
+    username: ${H2_DB_USERNAME}
+    password: ${H2_DB_PASSWORD}
+  jpa:
+    open-in-view: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        hbm2ddl:
+          auto: create
+
+logging:
+  level:
+    root: info
+    com.kangmin: debug
+  file:
+    name: log/spring-mvc-blog_dev.log
+
+server:
+  port: 8080
+
+application:
+  env:
+    node: DEV
+
+#
+# Amazon Web Service
+# such as SimpleEmailService
+#
+aws:
+  access:
+    key: ${AWS_ACCESS_KEY}
+  secret:
+    key: ${AWS_SECRET_KEY}
+  s3:
+    region: ${DEV_AWS_S3_REGION}
+    bucket: ${DEV_AWS_S3_BUCKET}

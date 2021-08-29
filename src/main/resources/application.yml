@@ -1,1 +1,30 @@
+# common properties (shared by dev and prod)
+# current default active profiles: dev
+spring:
+  config:
+    import: file:env.properties
+  thymeleaf:
+    mode: HTML
+    cache: false
+  profiles:
+    active: dev
+  data:
+    rest:
+      base-path: /api
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
+server:
+  error:
+    whitelabel:
+      enabled: false
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    context-path: /
+application:
+  locale: en_US

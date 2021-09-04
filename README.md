@@ -2,6 +2,8 @@
 
 # spring-mvc-blog
 
+PROD preview in Heroku: https://mysterious-everglades-24223.herokuapp.com/
+
 Spring MVC project for personal development blog
 
 - initialized with https://start.spring.io/

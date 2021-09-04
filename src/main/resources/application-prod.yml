@@ -1,9 +1,11 @@
 # For prod profile
 # CREATE DATABASE db_prod_blog_241 CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 spring:
+  config:
+    import: file:env.properties
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_prod_mvc_blog?&useUnicode=true&character_set_server=utf8mb4&character_set_client=utf8mb4&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://${PROD_MYSQL_DB_URL}:3306/${PROD_MYSQL_DB_NAME}?&useUnicode=true&character_set_server=utf8mb4&character_set_client=utf8mb4&characterEncoding=UTF-8&serverTimezone=UTC
     username: ${PROD_MYSQL_DB_USERNAME}
     password: ${PROD_MYSQL_DB_PASSWORD}
   jpa:

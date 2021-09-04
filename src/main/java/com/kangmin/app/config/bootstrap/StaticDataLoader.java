@@ -5,6 +5,8 @@ import com.kangmin.app.config.security.PasswordConfig;
 import com.kangmin.app.dao.AccountDao;
 import com.kangmin.app.model.Account;
 import com.kangmin.app.model.profile.EnvNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,8 @@ import java.util.List;
 })
 @Component
 public class StaticDataLoader implements CommandLineRunner {
+
+    private static final Logger LOG = LoggerFactory.getLogger(StaticDataLoader.class);
 
     private final EnvNode envNode;
     private final AccountDao accountDao;
@@ -39,6 +43,8 @@ public class StaticDataLoader implements CommandLineRunner {
         if (envNode == EnvNode.DEV && accountDao.findAll().isEmpty()) {
             final List<Account> initAccounts = createInitAccounts();
             accountDao.saveAll(initAccounts);
+        } else if (envNode == EnvNode.PROD) {
+            LOG.info(">>> Application in PROD mode is up >>>");
         }
     }
 

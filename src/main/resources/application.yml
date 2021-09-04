@@ -8,7 +8,7 @@ spring:
     mode: HTML
     cache: false
   profiles:
-    active: dev
+    active: prod
   data:
     rest:
       base-path: /api

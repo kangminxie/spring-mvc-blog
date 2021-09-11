@@ -16,7 +16,7 @@ public class Account implements Serializable {
 
     private static final int COMMON_LENGTH = 50;
     // == PK string length is suggested to be less than 50
-    private static final int ID_LENGTH = COMMON_LENGTH;
+    public static final int ID_LENGTH = COMMON_LENGTH;
     private static final int USERNAME_LENGTH = COMMON_LENGTH;
     private static final int EMAIL_LENGTH = COMMON_LENGTH;
     private static final int NAME_LENGTH = 64;

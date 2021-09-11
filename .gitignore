@@ -9,6 +9,9 @@ log/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### ENV params ###
+env.properties
+
 # Ignore Gradle GUI config
 gradle-app.setting
 

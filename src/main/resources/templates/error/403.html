@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head th:replace="layouts/components :: head(~{::title})">
+    <title th:text="#{message.page.not.authorized.head.title}">Not Authorized</title>
+</head>
+<body>
+    <nav th:replace="layouts/components :: navigation-bar(index)"></nav>
+    <div class="error-page">
+        <div class="container">
+            <div class="text-center mt-3">
+                <h2>Request Error - Not Authorized</h2>
+                <p>
+                    <!--/*@thymesVar id="url" type="java.lang.String"*/-->
+                    Error Url: <span th:text="${url}">ErrorUrl</span>
+                </p>
+                <p>
+                    <!--/*@thymesVar id="exceptionMessage" type="java.lang.String"*/-->
+                    Exception Message: <span th:text="${exceptionMessage}">ErrorMessage</span>
+                </p>
+                <h4>
+                    <span th:text="#{message.page.not.authorized.body.content}">Not Authorized</span>
+                </h4>
+                <div class="m-3">
+                    <img th:src="'https://comingtestbucket.s3.amazonaws.com/efb79d9a-aa33-476a-802b-7a68a7fdcb64.gif'"
+                         src="#"
+                         alt="Be patient"
+                         style="width:100%; height:auto">
+                </div>
+                <p>
+                    <a href="#" th:href="@{/home}">Back to Home Page</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div th:insert="layouts/components :: footer"></div>
+    <div th:insert="layouts/components :: scripts"></div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 # spring-mvc-blog
 
-PROD preview in Heroku: https://mysterious-everglades-24223.herokuapp.com/
+PROD preview in Heroku: https://mysterious-everglades-24223.herokuapp.com/ or http://blog.kangminx.com
 
 Spring MVC project for personal development blog
 
@@ -10,7 +10,7 @@ Spring MVC project for personal development blog
 - manually added checkstyle configuration
 - incorporated circleci support (.circleci/config)
 - incorporate Heroku for deployment
-
+- provisioned AWS-RDS for PROD DB 
 
 ## local-dev
-- h2 database url: http://localhost:8080//h2-console/
+- h2 database url: http://localhost:8080/h2-console/

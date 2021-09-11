@@ -4,8 +4,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb  # http://localhost:8080//h2-console/
-    username: ${H2_DB_USERNAME}
-    password: ${H2_DB_PASSWORD}
+    username: sa
+    password: password
   jpa:
     open-in-view: true
     show-sql: true

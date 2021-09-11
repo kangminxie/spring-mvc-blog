@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layouts/components :: head(~{::title})">
+    <title>Category Page</title>
+</head>
+<body>
+    <nav th:replace="layouts/components :: navigation-bar(category)"></nav>
+    <!-- VIEW HEADER -->
+    <header class="app-header"
+            th:style="'background: url(' + @{/img/header-bridge.jpg} + ') no-repeat 0 -160px; background-size: cover;'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mt-0 text-white">
+                    <h1><i class="fas fa-home"> </i>&nbsp;Category Page</h1>
+                </div>
+                <div class="col-md-3 mt-0 text-white">
+                    <div class="nav-item" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+                        <a class="btn btn-success" th:href="@{/category/create}" target="_blank">
+                            <i class="fas fa-plus"> </i>&nbsp;New Category
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="category-page-main" class="page-main mt-0 pt-0">
+        <div class="container">
+            <div class="my-3">
+                <span class="h4">
+                    In total, there are <span th:text="${categories.size()}">1</span> categories <span class="text-muted">(current sort option: <span th:text="${sortOptions}">by id</span>)</span>
+                </span>
+                <div class="my-2">
+                    <a class="btn btn-outline-primary" th:classappend="${sortBy=='id'} ? 'my-category-selected'"
+                       th:href="@{__${#httpServletRequest.requestURI}__?sort=id}">Sort by id</a>
+                    <a class="btn btn-outline-primary" th:classappend="${sortBy=='name'} ? 'my-category-selected'"
+                       th:href="@{__${#httpServletRequest.requestURI}__?sort=name}">Sort by name</a>
+                    <span class="mx-2"> | </span>
+                    <a class="btn btn-outline-secondary" th:classappend="${sortOptions.contains('ASC')} ? 'my-category-direction-selected'"
+                       th:href="@{__${#httpServletRequest.requestURI}__?sort=} + ${sortBy} + ',asc'">Ascending</a>
+                    <a class="btn btn-outline-secondary" th:classappend="${sortOptions.contains('DESC')} ? 'my-category-direction-selected'"
+                       th:href="@{__${#httpServletRequest.requestURI}__?sort=} + ${sortBy} + ',desc'">Descending</a>
+                </div>
+            </div>
+            <div class="row">
+                <!--/*@thymesVar id="category" type="com.kangmin.app.model.Category"*/-->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-2" th:each="category : ${categories}">
+                    <card class="card mt-1">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-folder"></i> <span class="card-title h5" th:text="${category.name}">模拟分类</span> <span class="text-white">(id=<span th:text="${category.id}">1</span>)</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" th:text="${category.description}" style="min-height: 50px">
+                                Category's Description.
+                            </p>
+                            <a href="#" class="btn btn-outline-primary" target="_blank"
+                               th:href="@{/blogs/by-category/{id}(id=${category.id})}">
+                                Read related blogs
+                            </a>
+                        </div>
+                    </card>
+                </div>
+            </div>
+            <div class="my-3">
+<!--                <span class="h4">-->
+<!--                    In total, there are <span th:text="${blogList.size()}">1</span> blogs in this category-->
+<!--                </span>-->
+                <div class="mx-3">
+                    <!--/*@thymesVar id="blog" type="com.kangmin.app.model.Blog"*/-->
+                    <ul class="col-12 col-sm-6 col-md-4 my-2" th:each="blog : ${blogList}">
+                        <li><span class="card-title h5" th:text="${blog.title}">BlogTitle</span></li>
+                    </ul>
+<!--                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-2" th:each="blog : ${blogList}">-->
+<!--                        <div class="card-header bg-info text-white">-->
+<!--                            <span class="card-title h5" th:text="${blog.title}">BlogTitle</span>-->
+<!--                            <span class="card-title h5" th:text="${blog.description}">BlogDescription</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="layouts/components :: footer"></div>
+    <div th:replace="layouts/components :: scripts"></div>
+</body>
+</html>

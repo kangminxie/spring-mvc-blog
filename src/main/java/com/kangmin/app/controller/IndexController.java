@@ -50,10 +50,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping({
-        LOGIN_URL,
-        "**/login"
-    })
+    @RequestMapping(LOGIN_URL)
     public String showLoginPage() {
         // == check if user already logged-in ==
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();

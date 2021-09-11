@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layouts/components :: head(~{::title})">
+    <title th:text="#{message.page.home.head.title}">Blogs Page</title>
+</head>
+<body>
+    <nav th:replace="layouts/components :: navigation-bar(blogs)"></nav>
+    <!-- HOME HEADER -->
+    <header class="app-header"
+            th:style="'background: url(' + @{/img/header-home.jpg} + ') no-repeat 0 -160px; background-size: cover;'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mt-0 text-white">
+                    <h1><i class="fas fa-home"> </i>&nbsp;Kangmin's Development Blog</h1>
+                    <h5 class="text-left">Welcome, <i><span sec:authentication="name"> </span></i></h5>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="blogs-page-main" class="page-main">
+        <div class="col-12 col-lg-10 offset-lg-1">
+            <div class="row">
+                <div class="col-12 col-md-8 mb-4">
+                    <!--header-->
+                    <div class="card w-90">
+                        <div class="card-header bg-dark text-white">
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-3 h5 mt-2">
+                                    <th:block th:if="${viewByCategory}">
+                                        <span class="d-inline-block">
+                                            <span th:text="#{message.page.home.blog.category.summary}">Categorized</span>
+                                            <a href="#" class="btn btn-warning ml-2 py-0" th:href="@{/blogs(query=${query})}">
+                                                <span th:text="#{message.page.home.blog.button.reset.label}">Reset</span>
+                                            </a>
+                                        </span>
+                                    </th:block>
+                                    <th:block th:unless="${viewByCategory}">
+                                        <span th:text="#{message.page.home.blog.all.summary}">All Blogs</span>
+                                    </th:block>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-7 mt-1">
+                                    <form class="form-inline row my-2 my-lg-0"
+                                          method="GET" action="#" th:action="@{__${#httpServletRequest.requestURI}__}">
+                                        <div class="row w-100 ml-1">
+                                            <div class="col-12 col-md-9">
+                                                <input class="form-control w-100" type="search"
+                                                       placeholder="Input search query" aria-label="Search"
+                                                       name="query"
+                                                       th:value="${query}"
+                                                >
+                                            </div>
+                                            <div class="col-12 col-md-8 col-lg-2 pl-md-1 pl-lg-0">
+                                                <button class="btn btn-success my-2 my-md-0" type="submit">
+                                                    <span th:text="#{message.page.home.blog.button.search.label}">Search</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-12 col-md-3 col-lg-2 h5 text-center mt-2">
+                                    <span class="font-weight-bold" th:text="${page.totalElements}">10</span> Results
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core -->
+                    <div class="">
+                        <!--/*@thymesVar id="blog" type="com.kangmin.app.model.Blog"*/-->
+                        <div class="" th:each="blog : ${page.content}">
+                            <div class="card mb-2 w-90">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="./blog-view.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">
+                                            blogTitle
+                                        </a>
+                                    </h5>
+                                    <div class="row">
+                                        <div class="col-12 col-md-8">
+                                            <i class="fas fa-calendar-alt"> </i>&nbsp;
+                                            <span class="text-muted" th:text="${#dates.format(blog.createTime,'yyyy-MM-dd hh:mm:ss a')}">2020-10-02</span>
+                                            <span class="text-muted"> by </span>
+                                            <i class="fas fa-feather"></i>
+                                            <span class="text-muted"><a href="#" class="header" th:text="${blog.account.name}">MountKingX</a></span>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="text-muted float-right">
+                                                Category: <a href="/" target="_blank" class=""
+                                                       th:text="${blog.category.name}">CategoryName</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row blog-content">
+                                        <div class="col-12 col-md-7">
+<!--                                            <p class="m-text mt-2" th:text="|${blog.description}......|">-->
+<!--                                                Description for this blog-->
+<!--                                            </p>-->
+                                            <div id="content"
+                                                 class="typo typo-selection"
+                                                 th:utext="${blog.description}"
+                                                 style="min-height: 150px;"
+                                            >
+                                                BlogDescription
+                                            </div>
+                                            <div class="my-2">
+<!--                                                <a class="btn btn-primary" data-toggle="collapse" th:href="'#collapseContent' + ${blog.id}"-->
+<!--                                                   role="button" aria-expanded="false" th:aria-controls="'collapseContent' + ${blog.id}">-->
+<!--                                                    Read More...-->
+<!--                                                </a>-->
+                                                <a class="btn btn-primary" th:href="@{/blogs/{id}(id=${blog.id})}" href="./blog-view.html" target="_blank">
+                                                    Read More...
+                                                </a>
+                                            </div>
+<!--                                            <p class="text-muted">-->
+<!--                                                Last edited on <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2021-01-09</span>-->
+<!--                                            </p>-->
+                                        </div>
+                                        <div class="col-12 col-md-5">
+                                            <div class="mb-2">
+                                                <img th:src="'https://comingtestbucket.s3.amazonaws.com/' + ${blog.imageId}"
+                                                     src="https://comingtestbucket.s3.amazonaws.com/cde966b1-deff-466a-80a3-d9b1b8a58b88.jpeg"
+                                                     alt="Blog Image"
+                                                     style="width: 100%; height: auto">
+                                            </div>
+                                        </div>
+<!--                                        <div class="col-12">-->
+<!--                                            <div class="collapse" th:id="'collapseContent' + ${blog.id}">-->
+<!--                                                <div class="card card-body">-->
+<!--                                                    <div th:utext="${blog.content}">-->
+<!--                                                        content-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <span sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')">
+                                        <a class="btn btn-outline-primary py-1"
+                                           th:href="@{/blogs/{id}/edit(id=${blog.id})}" target="_blank">
+                                           Edit it
+                                        </a>
+                                    </span>
+                                    <span class="float-right">
+                                        <i class="far fa-eye"></i> Views (<i class="eye icon"></i><span th:text="${blog.views}">1</span>)&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <a class="" data-toggle="collapse" th:href="'#collapseComments' + ${blog.id}"
+                                           role="button" aria-expanded="false" th:aria-controls="'collapseComments' + ${blog.id}">
+                                            <i class="fas fa-arrow-circle-down"></i> Comments (<span th:text="${blog.comments.size()}">1</span>)
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="comments-region">
+                                    <div class="collapse" th:id="'collapseComments' + ${blog.id}">
+                                        <div class="card card-body">
+                                            <th:block th:if="${blog.comments.size() > 0}">
+                                                <div class="my-2" th:each="comment : ${blog.comments}">
+                                                    <div class="alert alert-secondary" role="alert">
+                                                        <span class="text-left" th:text="${comment.content}">Content of Comment</span>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${blog.comments.size() > 0}">
+                                                <div>No Comment Yet. Be the first to leave a comment?</div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- pager -->
+                    <div class="blogs-pager" th:if="${page.totalPages} > 1">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="float-left">
+                                    <th:block th:if="${viewByCategory}">
+                                        <a href="#" th:href="@{/blogs/category/{id}(id=${categoryId}, page=${page.number}-1,query=${query})}" th:unless="${page.first}"
+                                           class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i> 上一页</a>
+                                    </th:block>
+                                    <th:block th:unless="${viewByCategory}">
+                                        <a href="#" th:href="@{/blogs(page=${page.number}-1,query=${query})}" th:unless="${page.first}"
+                                           class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i> 上一页</a>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center text-muted my-2">
+                                    第 <span th:text="${page.number+1}">1</span> / <span th:text="${page.totalPages}">1</span> 页
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="float-right">
+<!--                                    https://www.baeldung.com/spring-thymeleaf-path-variables-->
+                                    <th:block th:if="${viewByCategory}">
+                                        <a href="#" th:href="@{/blogs/category/{id}(id=${categoryId}, page=${page.number}+1,query=${query})}" th:unless="${page.last}"
+                                           class="btn btn-outline-primary">下一页 <i class="fas fa-chevron-right"></i></a>
+                                    </th:block>
+                                    <th:block th:unless="${viewByCategory}">
+                                        <a href="#" th:href="@{/blogs(page=${page.number}+1,query=${query})}" th:unless="${page.last}"
+                                           class="btn btn-outline-primary">下一页 <i class="fas fa-chevron-right"></i></a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3 col-md-ml-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-folder-open"></i> Categories
+                            <a class="float-right" style="text-decoration: none" th:href="@{/category}"
+                               href="../category.html" target="_blank">
+                                More >>>
+                            </a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" th:each="category : ${categories}"
+                                th:classappend="${viewByCategory and category.id==categoryId} ? 'bg-warning'"
+                            >
+                               <a class="h6"
+                                  style="text-decoration: none" th:href="@{/blogs/by-category/{id}(id=${category.id})}">
+                                    <span th:text="${category.name}">Category Name</span> <span class="text-muted">
+                                    (<span th:text="${category.blogs.size()}">1</span>)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="layouts/components :: footer"></div>
+    <div th:insert="layouts/components :: scripts"></div>
+</body>
+</html>

@@ -41,3 +41,8 @@ nav a {
     background-color: orange;
     color: white;
 }
+
+.my-category-direction-selected {
+    background-color: mediumpurple;
+    color: white;
+}

@@ -59,7 +59,7 @@ public class StaticDataLoader implements CommandLineRunner {
 
     @Override
     public void run(final String... args) {
-        if (envNode == EnvNode.DEV && accountDao.findAll().isEmpty()) {
+        if (accountDao.findAll().isEmpty()) {
             final List<Account> initAccounts = createInitAccounts();
             accountDao.saveAll(initAccounts);
             if (blogDao.findAll().isEmpty()) {
